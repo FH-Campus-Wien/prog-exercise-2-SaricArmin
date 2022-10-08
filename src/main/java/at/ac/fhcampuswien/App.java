@@ -19,14 +19,14 @@ public class App {
             if (nr1 < 0)
             {
                 a = false;
+                if(counter == 1)
+                {
+                    System.out.println("No number entered.");
+                }
             }
             if(nr1 > largestnumber)
             {
                 largestnumber = nr1;
-            }
-            if(counter == 1 && nr1 < 0)
-            {
-                System.out.println("No number entered.");
             }
         }
         if(largestnumber > 0)
@@ -51,7 +51,7 @@ public class App {
         else {
             for (int x = 0; x <= rows; x++)
             {
-                for (int y = 1; y <= x; y++)
+                for (int columns = 1; columns <= x; columns++)
                 {
                     counter++;
                     System.out.print(counter + " ");
@@ -69,21 +69,16 @@ public class App {
 
         int rows = 6;
         int spacefromleft = rows -1;
-        for (int x = 1; x <= rows; x++)
-        {
-            for(int y = 0; y < spacefromleft; y++)
-            {
+        for (int x = 1; x <= rows; x++) {
+            for (int y = 0; y < spacefromleft; y++) {
                 System.out.print(" ");
             }
             spacefromleft--;
-            for (int z = 0; z < (2*x)-1; z++)
-            {
+            for (int z = 0; z < (2 * x) - 1; z++) {
                 System.out.print("*");
             }
             System.out.println();
         }
-
-
     }
 
     //todo Task 4
@@ -91,83 +86,132 @@ public class App {
         Scanner scanner = new Scanner(System.in);
         System.out.print("h: ");
         int rows = scanner.nextInt();
-        System.out.println("c: ");
+        System.out.print("c: ");
         char char1 = scanner.next().charAt(0); //workaround as there is no .nextChar()
-        int counter = 1;
-        int spacefromleft = rows -1;
-
-        //all loops need to start at 1, else the it wont print out the whole rhombus
-        //doesnt print the most right line yet
-        for (int x = 1; x <= rows; x++)
+        char1 = (char)(char1+1);    //increment char1 one higher as it starts one lower without
+        if (rows % 2 == 0)
         {
-            for (int y = 1; y <= spacefromleft; y++)
+            System.out.println("Invalid number!");
+            return;
+        }
+        int spacefromleft = ((rows+1)/2);
+        //top
+        for (int x = 1; x <= ((rows+1)/2); x++)             //prints top half middle part
+        {
+            for (int o = 1 ; o <= spacefromleft-x; o++)       // prints spaces from left side
             {
                 System.out.print(" ");
             }
-            spacefromleft--;
-            for (int z = 1; z <= 2*x-1; z++)
+            for (int left = x; left >= 1; left--)            //checks if value is between most left and middle part of diamond
             {
-                if(z == counter)
-                {
-                    System.out.print("2");
-                }
-                else
-                {
-                    System.out.print("1");
-                }
+                System.out.print((char)(char1 - left));
             }
-            counter++;
+            for (int right = 2; right <= x; right++)         //checks if value is between middle and most right part of diamond
+            {
+                System.out.print((char)(char1 - right));
+            }
             System.out.println();
         }
-        spacefromleft = 1;  //reset the space
-        counter = 3;
-        for (int x = 1; x <= rows -1; x++)
+
+        //bottom
+        for (int x = ((rows-1)/2); x > 0 ; x--)             //prints bottom half without middle part
         {
-            for (int y = 1; y <= spacefromleft; y++)
+            for (int b = 1; b <= spacefromleft -x; b++ )        // print spaces from left side
             {
                 System.out.print(" ");
             }
-            spacefromleft++;
-            for (int z = 1; z <= 2*(rows-x)-1; z++)
+            for (int left = x; left >= 1; left--)        //checks if value is between most left and middle part of diamond
             {
-                if(z == (spacefromleft+counter)-1*x)
-                {
-                    System.out.print("2");
-                }
-                else
-                {
-                    System.out.print("1");
-                }
+                System.out.print((char)(char1 - left));
             }
-            counter--;
+            for (int right = 2; right <= x; right++)     //checks if value is between middle and most right part of diamond
+            {
+                System.out.print((char)(char1 - right));
+            }
             System.out.println();
         }
-
-
-
     }
 
     //todo Task 5
     public void marks(){
-        // input your solution here
+        Scanner scanner = new Scanner(System.in);
+        boolean a = true;
+        int countfailed = 0;
+        double sum = 0;
+        int counter = 0;
+        double fin = 0.00;
+        while(a)
+        {
+            int mark = scanner.nextInt();
+            System.out.print("Mark " + (counter+1) +": " );
+            if(mark >=0 && mark <=5)
+            {
+                sum = sum + mark;
+                counter++;
+                if (mark == 5)
+                {
+                    countfailed++;
+                }
+                if (mark == 0)
+                {
+                    a = false;
+                    counter--;
+                }
+            }
+            else
+            {
+                System.out.println("Invalid mark!");
+            }
+        }
+        if (counter > 0)
+        {
+            fin = (sum / counter);
+        }
+        System.out.print("Average: ");
+        System.out.format("%.2f", fin);
+        System.out.println();
+        System.out.println("Negative marks: " + countfailed);
     }
 
     //todo Task 6
     public void happyNumbers(){
-        // input your solution here
+        System.out.print("n: ");
+        Scanner scanner = new Scanner(System.in);
+        int n = scanner.nextInt();
+        while(n !=1 && n != 4)      //does this as long as sum is not 1 or 4
+        {
+            n = digitSum(n);
+        }
+        if(n == 1)
+        {
+            System.out.println("Happy number!");
+        }
+        else
+        {
+            System.out.println("Sad number!");
+        }
     }
 
+    private static int digitSum(int num){          //this method calculates the sum of digits of a given number
+        int sum = 0;
+        while(num > 0){
+            sum += Math.pow(num%10, 2);     //square every digit of num
+            num = num/10;
+        }
+        return sum;     //returns sum of digits
+    }
     public static void main(String[] args){
         App exercise2 = new App();
 
-        /*System.out.println("Task 1: Largest Number");
+        System.out.println("Task 1: Largest Number");
         exercise2.largestNumber();
 
         System.out.println("\nTask 2: Stairs");
         exercise2.stairs();
 
         System.out.println("\nTask 3: Pyramide");
-        exercise2.printPyramid();*/
+        exercise2.printPyramid();
+
         System.out.println("\nTask 4: Raute");
         exercise2.printRhombus();
 
