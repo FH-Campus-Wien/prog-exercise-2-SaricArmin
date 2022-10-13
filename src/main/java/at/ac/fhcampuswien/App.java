@@ -16,7 +16,7 @@ public class App {
             counter++;
             double nr1 = scanner.nextDouble();
             System.out.print("Number " + counter + ": ");
-            if (nr1 < 0)
+            if (nr1 <= 0)
             {
                 a = false;
                 if(counter == 1)
@@ -88,7 +88,7 @@ public class App {
         int rows = scanner.nextInt();
         System.out.print("c: ");
         char char1 = scanner.next().charAt(0); //workaround as there is no .nextChar()
-        char1 = (char)(char1+1);    //increment char1 one higher as it starts one lower without
+        char1 = (char)(char1+1);               //increment char1 one higher as it starts one lower without
         if (rows % 2 == 0)
         {
             System.out.println("Invalid number!");
@@ -96,9 +96,9 @@ public class App {
         }
         int spacefromleft = ((rows+1)/2);
         //top
-        for (int x = 1; x <= ((rows+1)/2); x++)             //prints top half middle part
+        for (int x = 1; x <= ((rows+1)/2); x++)              //prints top half middle part
         {
-            for (int o = 1 ; o <= spacefromleft-x; o++)       // prints spaces from left side
+            for (int o = 1 ; o <= spacefromleft-x; o++)      // prints spaces from left side
             {
                 System.out.print(" ");
             }
@@ -114,17 +114,17 @@ public class App {
         }
 
         //bottom
-        for (int x = ((rows-1)/2); x > 0 ; x--)             //prints bottom half without middle part
+        for (int x = ((rows-1)/2); x > 0 ; x--)               //prints bottom half without middle part
         {
-            for (int b = 1; b <= spacefromleft -x; b++ )        // print spaces from left side
+            for (int b = 1; b <= spacefromleft -x; b++ )      // print spaces from left side
             {
                 System.out.print(" ");
             }
-            for (int left = x; left >= 1; left--)        //checks if value is between most left and middle part of diamond
+            for (int left = x; left >= 1; left--)             //checks if value is between most left and middle part of diamond
             {
                 System.out.print((char)(char1 - left));
             }
-            for (int right = 2; right <= x; right++)     //checks if value is between middle and most right part of diamond
+            for (int right = 2; right <= x; right++)          //checks if value is between middle and most right part of diamond
             {
                 System.out.print((char)(char1 - right));
             }
@@ -186,7 +186,7 @@ public class App {
         {
             System.out.println("Happy number!");
         }
-        else
+        else if (n > 1)
         {
             System.out.println("Sad number!");
         }
